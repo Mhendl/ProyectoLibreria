@@ -1,0 +1,144 @@
+package ar.com.libreria;
+
+import java.util.ArrayList;
+
+public class Tienda {
+
+	ArrayList<Producto> listaDeProductos;
+
+	public Tienda() {
+
+		this.listaDeProductos = new ArrayList<>();
+
+	}
+
+	// Función para saber si existe o no el producto.
+
+	private Producto buscarProducto(Producto producto) {
+
+		int i = 0;
+		Producto productoEncontrado = null;
+
+		while (i < listaDeProductos.size() && productoEncontrado == null) {
+
+			if (producto.getCodProducto() == listaDeProductos.get(i).getCodProducto()) {
+
+				productoEncontrado = listaDeProductos.get(i);
+
+			}
+
+			i++;
+
+		}
+
+		return productoEncontrado;
+
+	}
+
+	//Función para devolver el indice del objeto buscado.
+	
+	private int buscarIndice(Producto producto) {
+
+		int indice = -1;
+		int i = 0;
+		Producto productoEncontrado = null;
+
+		while (i < listaDeProductos.size() && productoEncontrado == null) {
+
+			if (producto.getCodProducto() == listaDeProductos.get(i).getCodProducto()) {
+
+				indice = i;
+
+			}
+
+			i++;
+
+		}
+
+		return indice;
+
+	}
+	
+	//Función para agregar un nuevo producto al ArrayList de productos, devuelve true si pudo agregarlo, o false en caso contrario.
+
+	public boolean agregarProducto(Producto producto) {
+
+		boolean pudo = false;
+
+		Producto productoEncontrado;
+
+		productoEncontrado = buscarProducto(producto);
+
+		if (productoEncontrado == null) {
+
+			listaDeProductos.add(producto);
+			pudo = true;
+
+		}
+
+		return pudo;
+
+	}
+	
+	//Función para quitar un producto del ArrayList de productos, devuelve true, si pudo eliminarlo, o false en caso contrario.
+
+	public boolean quitarProducto(Producto producto) {
+
+		boolean pudo = false;
+
+		Producto productoEncontrado;
+
+		productoEncontrado = buscarProducto(producto);
+
+		if (productoEncontrado != null) {
+
+			listaDeProductos.remove(producto);
+			pudo = true;
+
+		}
+
+		return pudo;
+
+	}
+	
+	//Función para modificar los datos de alguno de los productos ya ingresados en el ArrayList de productos, lo mismo, devuelve true si pudo modificar, o false en caso contrario.
+
+	public boolean modificarProducto(Producto producto, int dato, String nombre, int precio, int codProducto) {
+
+		boolean pudo = false;
+		int indice;
+
+		Producto productoEncontrado;
+
+		productoEncontrado = buscarProducto(producto);
+		indice = buscarIndice(producto);
+
+		if (productoEncontrado != null) {
+
+			switch (dato) {
+			case 1:
+				listaDeProductos.get(indice).setNombre(nombre);
+				pudo = true;
+				break;
+
+			case 2:
+				listaDeProductos.get(indice).setPrecio(precio);
+				pudo = true;
+				break;
+
+			case 3:
+				listaDeProductos.get(indice).setCodProducto(codProducto);
+				pudo = true;
+				break;
+
+			default:
+				System.out.println("No se encontro la opción indicada");
+				break;
+			}
+
+		}
+
+		return pudo;
+	}
+
+}
